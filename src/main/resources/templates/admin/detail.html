@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/nav :: headfrag}">
+
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:../../partials/_sidebar.html -->
+    <nav th:replace="~{/admin/nav :: navfrag}"/>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav class="navbar p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo-mini" href="/home"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item w-100">
+                        <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                            <input type="text" class="form-control" placeholder="Search products">
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> 상세정보 </h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">UI Elements</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Typography</li>
+                        </ol>
+                    </nav>
+                </div>
+                    <form>
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">UserName</h4>
+                                <p class="card-description"> ID <code>&lt;ID&gt;</code>  </p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <address>
+                                            <p class="font-weight-bold">Password</p>
+                                            <p> 1234 </p>
+                                            <p class="card-description"> Birth <code>990423</code>
+
+                                        </address>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <address class="text-primary">
+                                            <p class="font-weight-bold"> E-mail </p>
+                                            <p class="mb-2"> 1234@naver.com </p>
+                                            <p class="font-weight-bold"> Phone </p>
+                                            <p> 010-0000-0000 </p>
+                                        </address>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">Address</h4>
+                                </p>
+                                <p class="lead"> 경기도 의정부시 우미쁘띠린 </p>
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-right" >
+                                    <a th:href="@{/admin/upform}" class="btn btn-primary me-2">
+                                        <i class="fas fa-comments"></i> 수정하기
+                                    </a>
+                                    <a th:href="@{/admin/list}" class="btn btn-dark">
+                                        <i class="fas fa-comments"></i> 돌아가기
+                                    </a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    </form>
+
+
+
+
+
+
+
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+
+            <footer class="footer" th:replace="~{/admin/footer :: footerfrag}">
+
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<div th:replace="~{/admin/footer :: scriptfrag}">
+
+</div>
+</body>
+</html>
