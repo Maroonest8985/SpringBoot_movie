@@ -1,6 +1,8 @@
 package com.example.movie.Controller;
 
+import com.example.movie.Domain.MemberDTO;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,7 +21,8 @@ public class AdminController {
     }
 
     @GetMapping("/regform")
-    public String getRegform(){
+    public String getRegform(Model model){
+        model.addAttribute("member", MemberDTO.builder().build());
         return "/admin/regform";
     }
 
