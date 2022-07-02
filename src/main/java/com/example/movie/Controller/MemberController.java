@@ -1,6 +1,7 @@
 package com.example.movie.Controller;
 
 import com.example.movie.Domain.MemberDTO;
+import com.example.movie.Entity.Member;
 import com.example.movie.Service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,29 @@ public class MemberController {
         return "/member/read";
     }
 
+    @GetMapping("/{idx}/update")
+    public String getUpdate(@PathVariable("idx") Long no, Model model){
+        MemberDTO memberDTO = memberService.readById(no);
+        model.addAttribute("member",memberDTO);
+        return "/member/update";
+    }
+
+    @PutMapping("/{idx}")
+    public String putMemberUpdate(@ModelAttribute("idx") MemberDTO memberDTO, Model model){
+        memberService.update(memberDTO);
+        model.addAttribute(memberDTO);
+        return "redirect:/";
+    }
+
+    @DeleteMapping("/{idx}")
+    public String deleteMember(@ModelAttribute("idx") MemberDTO memberDTO, Model model, HttpSession session){
+        memberService.delete(memberDTO);
+        model.addAttribute(memberDTO);
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
     @GetMapping("/login")
     public String getLoginform(Model model) {
         model.addAttribute("member", MemberDTO.builder().build());
@@ -44,13 +68,14 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String getLogin(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request) {
+    public String postLogin(@ModelAttribute("member") MemberDTO memberDTO, HttpServletRequest request) {
         MemberDTO dto = null;
         if ((dto = memberService.loginById(memberDTO)) != null) {
             HttpSession session = request.getSession();
             session.setAttribute("login", dto);
             return "redirect:/";
-        } else
+        }
+        else
             return "/member/loginfail";
     }
     @GetMapping("/logout")

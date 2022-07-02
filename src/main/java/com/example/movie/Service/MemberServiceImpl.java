@@ -23,6 +23,12 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public void update(MemberDTO member) {
+        Member entity = dtoToEntity(member);
+        memberRepository.save(entity);
+    }
+
+    @Override
     public MemberDTO readById(Long no) {
         MemberDTO member = null;
         Optional<Member> result = memberRepository.findById(no);
@@ -40,6 +46,12 @@ public class MemberServiceImpl implements MemberService{
             member = entityToDto((Member) result);
         }
         return member;
+    }
+
+    @Override
+    public void delete(MemberDTO member) {
+    Member entity = dtoToEntity(member);
+    memberRepository.deleteById(entity.getNo());
     }
 
     private MemberDTO entityToDto(Member entity){
