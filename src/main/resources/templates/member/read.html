@@ -46,7 +46,23 @@
 <!--                        <span class="text">-->
 <!--                            <a th:href="@{'/member/'+ ${member.no} + '/update'}" class="btn btn-primary btn-block enter-btn">수정하기</a>-->
 <!--                        </span>-->
-                        <p class="sign-up text-center">삭제를 원하시나요 ?<a href="#"> On Click</a></p>
+                        <p class="sign-up text-center">삭제를 원하시나요 ?</p>
+                            <form th:action="@{'/member/' + ${member.no}}" th:object="${member}" th:method="delete" id="deleteForm">
+                            <a onclick="javascript:deleteMember()"> On Click</a>
+                            </form>
+
+                        <script th:inline="javascript">
+                            /*<![CDATA[*/
+                            function deleteMember()
+                            {
+                                var isDelete = confirm("회원 탈퇴 하시겠습니까?")
+                                if(isDelete){
+                                    location.href=[[${"/member/delete"}]]
+                                }
+                            }
+
+                            /*]]>*/
+                        </script>
 <!--                        <div class="text-center">-->
 <!--                            <button type="submit" class="btn btn-primary btn-block enter-btn">수정하기</button>-->
 <!--                            <button type="button" onclick="location.href='/'" class="btn btn-primary btn-block enter-btn">돌아가기</button>-->
