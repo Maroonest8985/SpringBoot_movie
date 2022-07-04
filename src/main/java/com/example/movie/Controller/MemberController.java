@@ -3,6 +3,7 @@ package com.example.movie.Controller;
 import com.example.movie.Domain.MemberDTO;
 import com.example.movie.Entity.Member;
 import com.example.movie.Service.MemberService;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,9 +54,9 @@ public class MemberController {
     }
 
     @DeleteMapping("/{idx}")
-    public String deleteMember(@ModelAttribute("idx") MemberDTO memberDTO, Model model, HttpSession session){
-        memberService.delete(memberDTO);
-        model.addAttribute(memberDTO);
+    public String deleteMember(@PathVariable("idx") Long no, Model model, HttpSession session){
+        memberService.deleteByNo(no);
+        model.addAttribute(no);
         session.invalidate();
         return "redirect:/";
     }
