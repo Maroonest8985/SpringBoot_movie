@@ -10,6 +10,6 @@ public interface MemberService {
     void update(MemberDTO member);
     MemberDTO readById(Long no);
     MemberDTO loginById(MemberDTO memberDTO);
+    void deleteByNo(Long no);
 
-    void delete(MemberDTO member);
 }

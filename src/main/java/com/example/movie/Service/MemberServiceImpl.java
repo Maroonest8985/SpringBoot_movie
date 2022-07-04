@@ -6,6 +6,7 @@ import com.example.movie.Entity.Member;
 import com.example.movie.Repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.TransactionalException;
 import java.util.Optional;
 
 @Service
@@ -49,10 +50,15 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void delete(MemberDTO member) {
-    Member entity = dtoToEntity(member);
-    memberRepository.deleteById(entity.getNo());
+    public void deleteByNo(Long no) {
+        try{
+        memberRepository.deleteMemberByNo(no);
+    } catch (TransactionalException e)
+        {
+            e.printStackTrace();
+        }
     }
+
 
     private MemberDTO entityToDto(Member entity){
         MemberDTO memberDTO = MemberDTO.builder()
