@@ -23,6 +23,11 @@ public class AdminController {
         return "/admin/home";
     }
 
+    @GetMapping("/list")
+    public String getList(){
+        return "/admin/list";
+    }
+
     @GetMapping("/regform")
     public String getRegform(Model model){
         model.addAttribute("member", MemberDTO.builder().build());
@@ -49,5 +54,8 @@ public class AdminController {
     public String getSeat(){
         return "/admin/seat";
     }
+
+    @GetMapping("/cinema")
+    public String getCinema() {return "/admin/cinema";}
 
 }
