@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{/admin/nav :: headfrag}">
-
+<head >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Corona Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="../../assets/vendors/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/owl-carousel-2/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/owl-carousel-2/owl.theme.default.min.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
 </head>
 <body>
 <div class="container-scroller">
     <!-- partial:../../partials/_sidebar.html -->
-    <nav th:replace="~{/admin/nav :: navfrag}"/>
+    <nav class="sidebar sidebar-offcanvas" id="sidebar" >
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+            <a class="sidebar-brand brand-logo" href="/admin/home"><img src="../../assets/images/logo.svg" alt="logo" /></a>
+            <a class="sidebar-brand brand-logo-mini" href="/admin/home"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+        </div>
+        <ul class="nav">
+            <li class="nav-item profile">
+                <div class="profile-desc">
+                    <div class="profile-pic">
+                        <div class="count-indicator">
+                            <img class="img-xs rounded-circle " src="../../assets/images/faces/face15.jpg" alt="">
+                            <span class="count bg-success"></span>
+                        </div>
+                        <div class="profile-name">
+                            <h5 class="mb-0 font-weight-normal">Admin</h5>
+                            <span>Gold Member</span>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li class="nav-item nav-category">
+                <span class="nav-link">Navigation</span>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/" th:href="@{/}">
+              <span class="menu-icon">
+                <i class="mdi mdi-speedometer"></i>
+              </span>
+                    <span class="menu-title">영화사이트</span>
+                </a>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <span class="menu-icon">
+                <i class="mdi mdi-laptop"></i>
+              </span>
+                    <span class="menu-title">Member</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-basic">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" href="/admin/regform" th:href="@{/admin/regform}">등록</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/admin/list" th:href="@{/admin/list}">회원목록</a></li>
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+    </nav>
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
             <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo-mini" href="/home"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="/home"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -44,23 +111,23 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">UserName</h4>
-                                <p class="card-description"> ID <code>&lt;ID&gt;</code>  </p>
+                                <h4 class="card-title"<span th:text="${member.username}"/></h4>
+                                <p class="card-description"> ID <code><span th:text="${member.id}"/></code>  </p>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <address>
                                             <p class="font-weight-bold">Password</p>
-                                            <p> 1234 </p>
-                                            <p class="card-description"> Birth <code>990423</code>
+                                            <p> <span th:text="${member.password}"/> </p>
+                                            <p class="card-description"> Birth <code><span th:text="${member.birth}"/></code>
 
                                         </address>
                                     </div>
                                     <div class="col-md-6">
                                         <address class="text-primary">
                                             <p class="font-weight-bold"> E-mail </p>
-                                            <p class="mb-2"> 1234@naver.com </p>
+                                            <p class="mb-2"> <span th:text="${member.email}"/> </p>
                                             <p class="font-weight-bold"> Phone </p>
-                                            <p> 010-0000-0000 </p>
+                                            <p> <span th:text="${member.phone}"/> </p>
                                         </address>
                                     </div>
                                 </div>
@@ -68,17 +135,20 @@
                             <div class="card-body">
                                 <h4 class="card-title">Address</h4>
                                 </p>
-                                <p class="lead"> 경기도 의정부시 우미쁘띠린 </p>
+                                <p class="lead"> <span th:text="${member.address}"/> </p>
 
                             </div>
                             <div class="card-footer">
                                 <div class="text-right" >
-                                    <a th:href="@{/admin/upform}" class="btn btn-primary me-2">
+                                    <a th:href="@{'/admin/upform/'+ ${member.no}}" class="btn btn-primary me-2">
                                         <i class="fas fa-comments"></i> 수정하기
                                     </a>
+
+
                                     <a th:href="@{/admin/list}" class="btn btn-dark">
                                         <i class="fas fa-comments"></i> 돌아가기
                                     </a>
+
                                 </div>
                             </div>
 
