@@ -22,6 +22,7 @@ public class CinemaServiceImpl implements CinemaService{
     public Cinema dtoToEntity (CinemaDTO cinema){
         Cinema entity = Cinema.builder()
                 .ci_no(cinema.getCi_no())
+                .name(cinema.getName())
                 .seat(cinema.getSeat())
                 .build();
         return entity;
@@ -30,6 +31,7 @@ public class CinemaServiceImpl implements CinemaService{
     public CinemaDTO entityToDto(Cinema entity){
         CinemaDTO cinemaDTO = CinemaDTO.builder()
                 .ci_no(entity.getCi_no())
+                .name(entity.getName())
                 .seat(entity.getSeat())
                 .build();
         return cinemaDTO;

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/nav :: headfrag}">
+
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:../../partials/_sidebar.html -->
+    <nav th:replace="~{/admin/nav :: navfrag}"/>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav class="navbar p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo-mini" href="/home"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item w-100">
+                        <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                            <input type="text" class="form-control" placeholder="Search products">
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> 상영관 제작 </h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Basic tables</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-48 col-xl-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">상영관 Create</h4>
+                            <form>
+                            <div class="add-items d-flex">
+                                <input type="text" class="form-control todo-list-input" placeholder="상영관 이름">
+                                <input type="text" class="form-control todo-list-input" placeholder="가로">
+                                <input type="text" class="form-control todo-list-input" placeholder="세로 연구소">
+                                <button type="submit" class="add btn btn-primary todo-list-add-btn">Add</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+
+            <footer class="footer" th:replace="~{/admin/footer :: footerfrag}">
+
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<div th:replace="~{/admin/footer :: scriptfrag}">
+
+</div>
+</body>
+</html>

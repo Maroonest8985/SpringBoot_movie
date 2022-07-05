@@ -1,6 +1,8 @@
 package com.example.movie.Controller;
 
+import com.example.movie.Domain.CinemaDTO;
 import com.example.movie.Domain.MemberDTO;
+import com.example.movie.Service.CinemaService;
 import com.example.movie.Service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
     private final MemberService memberService;
+    private final CinemaService cinemaService;
     // 생성자 주입 : (Constructor Injection) vs. @Autowired
-    public AdminController(MemberService memberService) {
+    public AdminController(MemberService memberService, CinemaService cinemaService) {
         this.memberService = memberService;
+        this.cinemaService = cinemaService;
     }
 
     @GetMapping("/home")
@@ -50,7 +54,18 @@ public class AdminController {
         return "/admin/detail";
     }
 
-    @GetMapping("/cinema")
-    public String getCinema() {return "/admin/cinema";}
+    @GetMapping("/cinemalist")
+    public String getCinema() {return "/admin/cinemalist";}
 
+    @GetMapping("/ciadd")
+    public String getCiadd(Model model) {
+        model.addAttribute("cinema", CinemaDTO.builder().build());
+        return "/admin/ciadd";
+    }
+
+    @PostMapping("/cinema")
+    public String postCinema(@ModelAttribute("cinema") CinemaDTO cinema){
+        cinemaService.create(cinema);
+        return "/admin/cinemalist";
+    }
 }
