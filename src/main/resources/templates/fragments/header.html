@@ -23,6 +23,14 @@
                 <li class="nav-item"><a class="nav-link" href="/admin/home">Admin</a></li>
 
             </ul>
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <div class="collapse navbar-collapse"><a class="nav-link" href="/member/regform" th:if="${session.login == null}">회원가입</a></div>
+                <div class="collapse navbar-collapse"><a class="nav-link" href="/member/login" th:if="${session.login == null}">로그인</a></div>
+                <div class="collapse navbar-collapse"><a class="nav-link" th:href="'/member/'+ ${session.login.no}" th:if="${session.login != null}">내 정보</a></div>
+                <div class="collapse navbar-collapse" th:if="${session.login != null}"><a class="nav-link" href="/member/logout">로그아웃</a></div>
+            </ul>
+
             <form class="d-flex">
                 <a href="https://kauth.kakao.com/oauth/authorize?client_id=9f503bb5b02b69a8c90d7b201066b7d8&redirect_uri=http://localhost:8880/user/kakao/callback&response_type=code">
                     <img src="../assets/images/kakao_login_button.png" alt="logo" /></a>

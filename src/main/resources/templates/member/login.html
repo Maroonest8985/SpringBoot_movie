@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/nav :: headfrag}">
+
+</head>
+<body>
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="row w-100 m-0">
+            <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+                <div class="card col-lg-4 mx-auto">
+                    <div class="card-body px-5 py-5">
+                        <h3 class="card-title text-left mb-3">로그인</h3>
+                        <form th:action="@{'/member/login'}" th:object="${member}" th:method="post">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="text" name="id" th:field="*{id}" class="form-control p_input">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" name="password" th:field="*{password}" class="form-control p_input">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-block enter-btn">로그인</button>
+                                <button type="button" onclick="location.href='/'" class="btn btn-primary btn-block enter-btn">이전</button>
+                            </div>
+                        </form>
+                            <p class="sign-up text-center">회원가입을 하시겠습니까 ?<a th:href="${'/member/regform'}"> 회원가입</a></p>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+        </div>
+        <!-- row ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<div th:replace="~{/admin/footer :: scriptfrag}"></div>
+</body>
+</html>
