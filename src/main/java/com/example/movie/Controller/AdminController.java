@@ -50,4 +50,7 @@ public class AdminController {
         return "/admin/detail";
     }
 
+    @GetMapping("/cinema")
+    public String getCinema() {return "/admin/cinema";}
+
 }

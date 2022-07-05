@@ -1,27 +1,37 @@
 package com.example.movie.Service;
 
-
-import com.example.movie.Domain.MemberDTO;
-import com.example.movie.Entity.Member;
-import com.example.movie.Repository.MemberRepository;
+import com.example.movie.Domain.CinemaDTO;
+import com.example.movie.Entity.Cinema;
+import com.example.movie.Repository.CinemaRepository;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.TransactionalException;
-import java.lang.reflect.Array;
-import java.util.Optional;
 
 @Service
 public class CinemaServiceImpl implements CinemaService{
-    private final MemberRepository memberRepository;
+    private final CinemaRepository cinemaRepository;
 
-    public CinemaServiceImpl(MemberRepository memberRepository){
-        this.memberRepository = memberRepository;
+    public CinemaServiceImpl(CinemaRepository cinemaRepository) {
+        this.cinemaRepository = cinemaRepository;
     }
 
     @Override
-    public void insertSeat(Array arr){
-
+    public void create(CinemaDTO cinema) {
+        Cinema entity = dtoToEntity(cinema);
+        cinemaRepository.save(entity);
     }
 
+    public Cinema dtoToEntity (CinemaDTO cinema){
+        Cinema entity = Cinema.builder()
+                .ci_no(cinema.getCi_no())
+                .seat(cinema.getSeat())
+                .build();
+        return entity;
+    }
 
+    public CinemaDTO entityToDto(Cinema entity){
+        CinemaDTO cinemaDTO = CinemaDTO.builder()
+                .ci_no(entity.getCi_no())
+                .seat(entity.getSeat())
+                .build();
+        return cinemaDTO;
+    }
 }
