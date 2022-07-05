@@ -50,6 +50,7 @@ public class AdminController {
         return "/admin/detail";
     }
 
+    // 임시 좌석 보기
     @GetMapping("/seat")
     public String getSeat(){
         return "/admin/seat";
