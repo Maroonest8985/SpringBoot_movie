@@ -65,7 +65,7 @@ public class AdminController {
 
     @PostMapping("/cinema")
     public String postCinema(@ModelAttribute("cinema") CinemaDTO cinema){
-        cinemaService.create(cinema);
+        //cinemaService.create(cinema);
         return "/admin/cinemalist";
     }
 }
