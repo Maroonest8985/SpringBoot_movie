@@ -27,5 +27,13 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/reserve")
+    public String getReserve(){
+
+        return "reserve";
+    }
+
+
+
 
 }

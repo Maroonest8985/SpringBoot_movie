@@ -20,7 +20,6 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
-
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "id", nullable = false)
