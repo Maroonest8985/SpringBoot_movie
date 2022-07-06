@@ -6,13 +6,14 @@ import com.example.movie.Entity.Member;
 import com.example.movie.Repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.TransactionalException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MemberServiceImpl implements MemberService{
-
     private final MemberRepository memberRepository;
+
     public MemberServiceImpl(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
     }
@@ -23,24 +24,45 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberDTO readById(Long no) {
-        MemberDTO memberDTO = null;
-        Optional<Member> result = memberRepository.findById(no);
-        if(result.isPresent()) {
-            memberDTO = entityToDto(result.get());
-        }
-        return memberDTO;
-    }
-    @Override
     public void create(MemberDTO member) {
         Member entity = dtoToEntity(member);
         memberRepository.save(entity);
     }
 
     @Override
-    public void update(MemberDTO memberDTO) {
-        Member member = dtoToEntity(memberDTO);
-        memberRepository.save(member);
+    public void update(MemberDTO member) {
+        Member entity = dtoToEntity(member);
+        memberRepository.save(entity);
+    }
+
+    @Override
+    public MemberDTO readById(Long no) {
+        MemberDTO member = null;
+        Optional<Member> result = memberRepository.findById(no);
+        if(result.isPresent()) {
+            member = entityToDto(result.get());
+        }
+        return member;
+    }
+
+    @Override
+    public MemberDTO loginById(MemberDTO memberDTO) {
+        MemberDTO member = null;
+        Object result = memberRepository.getMemberById(memberDTO.getId(), memberDTO.getPassword());
+        if(result != null) {
+            member = entityToDto((Member) result);
+        }
+        return member;
+    }
+
+    @Override
+    public void deleteByNo(Long no) {
+        try{
+            memberRepository.deleteMemberByNo(no);
+        } catch (TransactionalException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -49,6 +71,20 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.deleteById(member.getNo());
     }
 
+
+    private MemberDTO entityToDto(Member entity){
+        MemberDTO memberDTO = MemberDTO.builder()
+                .no(entity.getNo())
+                .address(entity.getAddress())
+                .birth(entity.getBirth())
+                .email(entity.getEmail())
+                .id(entity.getId())
+                .username(entity.getUsername())
+                .password(entity.getPassword())
+                .phone(entity.getPhone())
+                .build();
+        return memberDTO;
+    }
     private Member dtoToEntity(MemberDTO member) {
         Member entity = Member.builder()
                 .no(member.getNo())
@@ -61,21 +97,5 @@ public class MemberServiceImpl implements MemberService{
                 .phone(member.getPhone())
                 .build();
         return entity;
-    }
-
-    private MemberDTO entityToDto(Member entity){
-        //entity를 dto로 만들어주는 메소드
-        //만든이유: create find등의 메소드의 여러번(반복) 쓰기 귀찮고 편하게 쓰기 위해서
-        MemberDTO memberDTO = MemberDTO.builder()
-                .no(entity.getNo())
-                .address(entity.getAddress())
-                .birth(entity.getBirth())
-                .email(entity.getEmail())
-                .id(entity.getId())
-                .username(entity.getUsername())
-                .password(entity.getPassword())
-                .phone(entity.getPhone())
-                .build();
-        return memberDTO;
     }
 }

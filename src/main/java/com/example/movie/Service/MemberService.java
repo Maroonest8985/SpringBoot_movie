@@ -6,13 +6,15 @@ import com.example.movie.Entity.Member;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface MemberService {
-    List<Member> readAll();
-    MemberDTO readById(Long no);
     void create(MemberDTO member);
-    void update(MemberDTO memberDTO);
+    void update(MemberDTO member);
+    MemberDTO readById(Long no);
+    MemberDTO loginById(MemberDTO memberDTO);
+    void deleteByNo(Long no);
+    List<Member> readAll();
     void delete(MemberDTO memberDTO);
+
 }

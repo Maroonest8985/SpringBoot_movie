@@ -1,20 +1,22 @@
 package com.example.movie.Controller;
 
 import com.example.movie.Domain.MemberDTO;
+import com.example.movie.Entity.Member;
 import com.example.movie.Service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+
     private final MemberService memberService;
-    // 생성자 주입 : (Constructor Injection) vs. @Autowired
-    public AdminController(MemberService memberService) {
+
+    public AdminController(MemberService memberService){
         this.memberService = memberService;
     }
 
@@ -24,8 +26,16 @@ public class AdminController {
     }
 
     @GetMapping("/list")
-    public String getList(){
+    public String getList(Model model){
+        List<Member> list = memberService.readAll();
+        model.addAttribute("list",list);
         return "/admin/list";
+    }
+    @GetMapping("/detail/{idx}")
+    public String getDetail(@PathVariable("idx") Long no, Model model){
+        MemberDTO memberDTO = memberService.readById(no);
+        model.addAttribute("member", memberDTO);
+        return "/admin/detail";
     }
 
     @GetMapping("/regform")
@@ -36,18 +46,28 @@ public class AdminController {
     @PostMapping("")
     public String postMember(@ModelAttribute("member") MemberDTO member, Model model){
         memberService.create(member);
-        return "/admin/list";
+        return "redirect:/admin/list";
         //return "/members/"+ member.getClass() +"/upform";
     }
 
-    @GetMapping("/upform")
-    public String getUpform(){
+    @GetMapping("/upform/{idx}")
+    public String getUpform(@PathVariable("idx")Long no,Model model){
+        MemberDTO memberDTO = memberService.readById(no);
+        model.addAttribute("member",memberDTO);
         return "/admin/upform";
     }
-
-    @GetMapping("/detail")
-    public String getDetail(){
+    @PutMapping("/{idx}")
+    public String putUpform(@ModelAttribute("member")MemberDTO memberDTO,Model model){
+        memberService.update(memberDTO);
+        model.addAttribute(memberDTO);
         return "/admin/detail";
     }
+    @DeleteMapping("/detail/{idx}")
+    public String deleteform(@ModelAttribute("member")MemberDTO memberDTO,Model model){
+        memberService.delete(memberDTO);
+        model.addAttribute(memberDTO);
+        return "redirect:/home";
+    }
+
 
 }
