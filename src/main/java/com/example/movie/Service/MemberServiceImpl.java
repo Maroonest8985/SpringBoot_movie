@@ -7,6 +7,7 @@ import com.example.movie.Repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.TransactionalException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,11 @@ public class MemberServiceImpl implements MemberService{
 
     public MemberServiceImpl(MemberRepository memberRepository){
         this.memberRepository = memberRepository;
+    }
+
+    @Override
+    public List<Member> readAll() {
+        return memberRepository.findAll();
     }
 
     @Override
@@ -52,11 +58,17 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void deleteByNo(Long no) {
         try{
-        memberRepository.deleteMemberByNo(no);
-    } catch (TransactionalException e)
+            memberRepository.deleteMemberByNo(no);
+        } catch (TransactionalException e)
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void delete(MemberDTO memberDTO) {
+        Member member = dtoToEntity(memberDTO);
+        memberRepository.deleteById(member.getNo());
     }
 
 
@@ -71,7 +83,7 @@ public class MemberServiceImpl implements MemberService{
                 .password(entity.getPassword())
                 .phone(entity.getPhone())
                 .build();
-             return memberDTO;
+        return memberDTO;
     }
     private Member dtoToEntity(MemberDTO member) {
         Member entity = Member.builder()
