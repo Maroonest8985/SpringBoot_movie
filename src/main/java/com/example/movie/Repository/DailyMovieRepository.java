@@ -9,4 +9,5 @@ import java.util.List;
 public interface DailyMovieRepository extends JpaRepository<Movie, Long> {
 
     List<String> findAllByMovieCd(String movieCd);
+    Movie findMovieByMovieCd(String movieCd);
 }
