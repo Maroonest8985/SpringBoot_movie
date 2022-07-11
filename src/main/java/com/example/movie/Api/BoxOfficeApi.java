@@ -30,12 +30,13 @@ public class BoxOfficeApi {
         //전날 박스오피스 조회 ( 오늘 날짜꺼는 안나옴.. )
         LocalDateTime time = LocalDateTime.now().minusDays(1);
         String targetDt =  time.format(DateTimeFormatter.ofPattern("yyyMMdd"));
+        dailyMovieRepository.deleteMoviesByTargetDtNotLike(targetDt); // 오늘자 제외하고 삭제
 
         //ROW 개수
         String itemPerPage = "10";
 
         //다양성영화(Y)/상업영화(N)/전체(default)
-        String multiMovieYn = "";
+        String multiMovieYn = "N";
 
         //한국영화(K)/외국영화(F)/전체(default)
         String repNationCd = "";
@@ -44,6 +45,7 @@ public class BoxOfficeApi {
         String wideAreaCd = "";
 
         try {
+
             // KOBIS 오픈 API Rest Client를 통해 호출
             KobisOpenAPIRestService service = new KobisOpenAPIRestService(key);
 
@@ -76,10 +78,10 @@ public class BoxOfficeApi {
                 //JSON object -> Java Object(Entity) 변환
                 Movie dailyMovie = objectMapper.readValue(dailyBoxOffice.toString(), Movie.class);
                 String movieCd = dailyMovie.getMovieCd();
-                List<String> movieList = dailyMovieRepository.findAllByMovieCd(movieCd);
+                List<String> movieList = dailyMovieRepository.findAllByMovieCd(movieCd);//업데이트
                 System.out.println(movieList);
                 //DB저장
-                if(movieList.isEmpty() == true){
+                if(movieList.isEmpty() == true){//영화가 겹치나? 안겹치면->
                     dailyMovie.setTargetDt(targetDt);
                     dailyMovie.setBoxofficeType(boxofficeType);
                     dailyMovie.setShowRange(showRange);
