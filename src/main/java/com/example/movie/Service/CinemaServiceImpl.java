@@ -5,7 +5,6 @@ import com.example.movie.Entity.Cinema;
 import com.example.movie.Repository.CinemaRepository;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 @Service
@@ -48,6 +47,11 @@ public class CinemaServiceImpl implements CinemaService{
         return strArray;
     }
 
+
+    public void create(CinemaDTO cinema) {
+        Cinema entity = dtoToEntity(cinema);
+        cinemaRepository.save(entity);
+    }
 
     public Cinema dtoToEntity (CinemaDTO cinema){
         Cinema entity = Cinema.builder()
