@@ -19,8 +19,10 @@ public class Reserve {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//예약번호
     private Long no;
-    @Column(name = "date", nullable = false)//예약일, 시간
-    private LocalDateTime date;
+    @Column(name = "date", nullable = false)//예약일
+    private String date;
+    @Column(name = "time", nullable = false)// 시간
+    private String time;
     @Column(name = "num", nullable = false)//인원수
     private String num;
     @Column(name = "seat", nullable = false)//좌석정보-"A1, A2"
