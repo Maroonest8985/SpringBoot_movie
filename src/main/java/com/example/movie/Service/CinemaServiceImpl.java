@@ -5,9 +5,12 @@ import com.example.movie.Entity.Cinema;
 import com.example.movie.Repository.CinemaRepository;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.lang.reflect.Array;
 import java.util.List;
 
+=======
+>>>>>>> 15f59caa061575b3ddf1aca1e8bfe12eaf879618
 @Service
 public class CinemaServiceImpl implements CinemaService{
     private final CinemaRepository cinemaRepository;
@@ -17,6 +20,7 @@ public class CinemaServiceImpl implements CinemaService{
     }
 
     @Override
+<<<<<<< HEAD
     public void create(Cinema cinema, int x, int y) {
 
         String seatArr = "";
@@ -49,6 +53,13 @@ public class CinemaServiceImpl implements CinemaService{
     }
 
 
+=======
+    public void create(CinemaDTO cinema) {
+        Cinema entity = dtoToEntity(cinema);
+        cinemaRepository.save(entity);
+    }
+
+>>>>>>> 15f59caa061575b3ddf1aca1e8bfe12eaf879618
     public Cinema dtoToEntity (CinemaDTO cinema){
         Cinema entity = Cinema.builder()
                 .ci_no(cinema.getCi_no())
