@@ -3,9 +3,9 @@
 <html lang="en">
 <body th:fragment="headerFragment">
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; position: fixed">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#!">Start Bootstrap</a>
+        <a class="navbar-brand" href="/">Main</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -21,6 +21,7 @@
                     </ul>
                 </li>
                 <li class="nav-item"><a class="nav-link" href="/admin/home">Admin</a></li>
+
             </ul>
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -31,6 +32,8 @@
             </ul>
 
             <form class="d-flex">
+                <a href="https://kauth.kakao.com/oauth/authorize?client_id=9f503bb5b02b69a8c90d7b201066b7d8&redirect_uri=http://localhost:8880/user/kakao/callback&response_type=code">
+                    <img src="../assets/images/kakao_login_button.png" alt="logo" /></a>
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
                     Cart

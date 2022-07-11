@@ -5,6 +5,8 @@ import lombok.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // Spring Data 관련 Annotation
 @Entity // Spring Data JPA의 엔티티(entity, 개체)임을 나타냄
@@ -20,7 +22,6 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long no;
-
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "id", nullable = false)
@@ -36,5 +37,6 @@ public class Member {
     @Column(name = "birth", nullable = false)
     private String birth;
 
-
+    @OneToMany(mappedBy = "member")
+    private List<Reserve> reserveList = new ArrayList<>();
 }

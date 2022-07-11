@@ -5,6 +5,17 @@
       layout:decorate="~{layout/default_layout}">
 
 <script layout:fragment="script">
+
+        function confirmLogin()
+        {
+            var isLogin = confirm("로그인 하시겠습니까?");
+            if(isLogin){
+                location.href="/member/login";
+        }else{
+                return false;
+            }
+        }
+
     $(function(){
 
         // 요소
@@ -109,7 +120,7 @@
                                 <div class="p-1 mt-1">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">[[${movie.rank}]] 위</h5>
+                                        <h5 class="fw-bolder">[[${movie.rnum}]] 위</h5>
                                     </div>
                                 </div>
                                 <img class="card-img-top" style="-webkit-user-drag:none;" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
@@ -125,7 +136,8 @@
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">예매하기</a></div>
+                                    <div th:if="${session.login} == null" class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="confirmLogin();">예매하기</a></div>
+                                    <div th:unless="${session.login} == null" class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{'/reserve/'+${movie.movieCd}}">예매하기</a></div>
                                 </div>
                             </div>
                         </div>

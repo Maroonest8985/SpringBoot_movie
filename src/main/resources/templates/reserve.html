@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+<script layout:fragment="script">
+    var seatList = [];
+    var date = "";
+    var time = "";
+    function selectSeat(id){
+        var seat = document.getElementById(id);
+        if(seat.classList.contains("bg-dark")){//active면
+            seat.classList.remove("bg-dark", "text-white");
+            let pos = seatList.indexOf(id);
+            seatList.splice(pos, 1);
+            console.log(seatList);
+        }else{
+            seat.classList.add("bg-dark", "text-white");
+            seatList.push(id);
+            console.log(seatList);
+        }
+    }
+
+    function selectDate(id){
+        var times = document.getElementsByClassName("time");
+        for(var i=0; i<times.length; i++){
+            times[i].classList.remove("active");
+        }
+        time = "";
+        console.log(time + "selectDate에서 리셋한 시간");
+        var dateRow = document.getElementById(id);
+        for(var i=1; i<=5; i++){
+            var str = "date"+i;
+            var selDate = document.getElementById(str);
+            selDate.classList.remove("active");
+        }
+        if(dateRow.classList.contains("active")){//active면
+            dateRow.classList.remove("active");
+            date = "";
+            console.log(date);
+        }else{
+            dateRow.classList.add("active");
+            date = dateRow.innerHTML;
+            console.log(date);
+        }
+        console.log(time);
+    }
+
+    function selectTime(id){
+        var timeRow = document.getElementById(id);
+        for(var i=1; i<=5; i++){
+            var str = "time"+i;
+            var selTime = document.getElementById(str);
+            selTime.classList.remove("active");
+        }
+        if(timeRow.classList.contains("active")){//active면
+            timeRow.classList.remove("active");
+            time = "";
+            console.log(time);
+        }else{
+            timeRow.classList.add("active");
+            time = timeRow.innerHTML;
+            console.log(time);
+        }
+    }
+    function reserveComplete(){
+        var formDate = document.getElementById("confirmDate");
+        var formTime = document.getElementById("confirmTime");
+        var formSeat = document.getElementById("confirmSeat");
+        var num = seatList.length;
+        var seat = seatList.toString();
+        console.log("좌석 : " + seatList + "날짜시간" + date + "/" + time + "인원수 : " + num);
+        var formNum = document.getElementById("confirmNum");
+        formDate.setAttribute('value', date);
+        formTime.setAttribute('value', time);
+        formSeat.setAttribute('value', seat);
+        formNum.setAttribute('value', num);
+    }
+</script>
+<div layout:fragment="content">
+        <!-- Header-->
+        <header class="bg-dark py-5" style="padding-bottom: 0.5em !important;">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">[[${movie.movieNm}]]</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">1관</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <section class="py-5">
+                <div class="container px-4 px-lg-5 mt-5" style="overflow: hidden">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4" style="flex-wrap: nowrap;">
+                    <div class="row mx-auto" style="width: 100%">
+                        <div class="col-3">
+                            날짜
+                            <div class="px-3">
+                                <ul class="list-group">
+                                    <li id="date1" onclick="selectDate(this.id);" class="list-group-item">7월 9일</li>
+                                    <li id="date2" onclick="selectDate(this.id);" class="list-group-item">7월 10일</li>
+                                    <li id="date3" onclick="selectDate(this.id);" class="list-group-item">7월 11일</li>
+                                    <li id="date4" onclick="selectDate(this.id);" class="list-group-item">7월 12일</li>
+                                    <li id="date5" onclick="selectDate(this.id);" class="list-group-item">7월 13일</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="timePlace" class="col-3">
+                            시간
+                            <div class="px-3">
+                            <ul class="list-group">
+                                <li id="time1" onclick="selectTime(this.id);" class="list-group-item time">08:00</li>
+                                <li id="time2" onclick="selectTime(this.id);" class="list-group-item time">10:00</li>
+                                <li id="time3" onclick="selectTime(this.id);" class="list-group-item time">13:00</li>
+                                <li id="time4" onclick="selectTime(this.id);" class="list-group-item time">15:00</li>
+                                <li id="time5" onclick="selectTime(this.id);" class="list-group-item time">19:00</li>
+                            </ul>
+                        </div>
+                        </div>
+                        <div id="seatPlace" class="col-6">
+                            좌석
+                            <table style="width: 100%; border : 1px solid black; text-align: center">
+                                <tr>
+                                    <td colspan="8">SCREEN</td>
+                                </tr>
+                                <tr>
+                                    <td id="A1" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                    <td id="A2" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                    <td id="A3" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                    <td id="A4" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                    <td id="A5" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                    <td id="A6" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                    <td id="A7" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                </tr><tr>
+                                <td id="B1" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B1</td>
+                                <td id="B2" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B2</td>
+                                <td id="B3" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B3</td>
+                                <td id="B4" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B4</td>
+                                <td id="B5" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B5</td>
+                                <td id="B6" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B6</td>
+                                <td id="B7" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B7</td>
+                            </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="row float-end">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="reserveComplete();" data-bs-target="#exampleModal">
+                            예약확인
+                        </button>
+                    </div>
+
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">예약확인</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="reserveForm" th:action="@{/reserve/reservation}" th:object="${reserve}" th:method="post">
+                                        <div class="mb-3">
+                                            <label for="confirmDate" class="form-label">날짜</label>
+                                            <input name="date" th:field="*{date}" type="text" class="form-control" id="confirmDate" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirmTime" class="form-label">시간</label>
+                                            <input name="time" th:field="*{time}" type="text" class="form-control" id="confirmTime" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirmSeat" class="form-label">좌석</label>
+                                            <input name="seat" th:field="*{seat}" type="text" class="form-control" id="confirmSeat" readonly>
+                                        </div>
+                                        <input name="num" th:field="*{num}" type="hidden" id="confirmNum" readonly>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">예약하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+        </section>
+
+
+</div>
+
+
+</html>

@@ -18,6 +18,10 @@ public class Cinema {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ci_no;
 
+    @Column(name = "name", nullable = false)
+    private String name;
+
     @Column(name = "seat", nullable = false)
     private String seat;
+
 }

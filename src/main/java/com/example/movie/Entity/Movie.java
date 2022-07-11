@@ -34,7 +34,6 @@ public class Movie {
     private String rankOldAndNew;
 
     /*영화의 대표코드*/
-
     private String movieCd;
 
     /*영화명(국문)*/

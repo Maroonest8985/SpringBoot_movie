@@ -32,7 +32,7 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="page-header">
-                    <h3 class="page-title"> Basic Tables </h3>
+                    <h3 class="page-title"> 상영관 제작 </h3>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Tables</a></li>
@@ -40,47 +40,20 @@
                         </ol>
                     </nav>
                 </div>
-                <div class="row">
-                    <form th:action="@{'/admin/list'}" th:method="get">
-                    <div class="col-lg-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Striped Table</h4>
-                                <p class="card-description"> Add class <code>.table-striped</code>
-                                </p>
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th> No </th>
-                                            <th> UserName </th>
-                                            <th> Email </th>
-                                            <th> Phone </th>
-                                            <th> Birth </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="memberDTO : ${list}">
-                                            <td class="py-1">
-                                                <a th:href="@{'/admin/detail/' + ${memberDTO.no}}"> <img src="../../assets/images/faces-clipart/pic-1.png" alt="image" /></a>
-                                                <span th:text="${memberDTO.no}"></span></a></td>
-                                            </td>
-                                            <td><span th:text="${memberDTO.username}"></span></td>
-                                            <td><span th:text="${memberDTO.email}"></span></td>
-                                            <td><span th:text="${memberDTO.phone}"></span></td>
-                                            <td><span th:text="${memberDTO.birth}"></span></td>
-
-                                        </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
+                <div class="col-md-48 col-xl-16 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">상영관 Create</h4>
+                            <form>
+                            <div class="add-items d-flex">
+                                <input type="text" class="form-control todo-list-input" placeholder="상영관 이름">
+                                <input type="text" class="form-control todo-list-input" placeholder="가로">
+                                <input type="text" class="form-control todo-list-input" placeholder="세로 연구소">
+                                <button type="submit" class="add btn btn-primary todo-list-add-btn">Add</button>
+                            </form>
                             </div>
                         </div>
                     </div>
-                    </form>
-
-
                 </div>
             </div>
             <!-- content-wrapper ends -->

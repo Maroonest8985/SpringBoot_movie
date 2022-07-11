@@ -5,8 +5,11 @@ import lombok.Data;
 
 @Data //@Getter, @Setter, @EqualsAndHash, @RequiredArgsConstructor
 @Builder
-public class CinemaDTO {
-    private Long ci_no;
-    private String name;
+
+public class ReserveDTO {
+    private Long no;
+    private String date;
+    private String time;
+    private String num;
     private String seat;
 }
