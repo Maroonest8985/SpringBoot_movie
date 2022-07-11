@@ -27,7 +27,7 @@ public class Schedule {
     @Column(name = "time", nullable = false)//스케줄 시간
     private LocalTime time;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "movie")//영화 정보
     private Movie movie;
 }
