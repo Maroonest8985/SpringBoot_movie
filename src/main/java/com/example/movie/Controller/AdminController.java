@@ -69,7 +69,5 @@ public class AdminController {
         return "/admin/seat";
     }
 
-    @GetMapping("/cinema")
-    public String getCinema() {return "/admin/cinema";}
 
 }
