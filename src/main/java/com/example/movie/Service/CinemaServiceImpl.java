@@ -16,7 +16,7 @@ public class CinemaServiceImpl implements CinemaService{
     }
 
     @Override
-    public void create(Cinema cinema, int x, int y) {
+    public void create(CinemaDTO cinema, int x, int y) {
 
         String seatArr = "";
         String seat = null;
@@ -48,7 +48,7 @@ public class CinemaServiceImpl implements CinemaService{
     }
 
 
-    public void create(CinemaDTO cinema) {
+    public void create1(CinemaDTO cinema) {
         Cinema entity = dtoToEntity(cinema);
         cinemaRepository.save(entity);
     }

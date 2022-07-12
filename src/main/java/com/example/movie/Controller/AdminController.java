@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -56,9 +58,12 @@ public class AdminController {
         return "/admin/ciadd";
     }
 
-    @PostMapping("/home")
-    public String postCinema(@ModelAttribute("cinema") Cinema cinema , int x , int y){
-        cinemaService.create(cinema, x , y);
+    @PostMapping("/cinemaadd")
+    public String postCinema1(@ModelAttribute("cinema") CinemaDTO cinema, HttpServletRequest request, Model model){
+        int x = Integer.parseInt(request.getParameter("x"));
+        int y = Integer.parseInt(request.getParameter("y"));
+        cinemaService.create(cinema, x, y);
+
         return "/admin/cinemalist";
     }
 
