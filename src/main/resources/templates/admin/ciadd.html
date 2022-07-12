@@ -45,10 +45,10 @@
                         <div class="card-body">
                             <h4 class="card-title">상영관 Create</h4>
                             <form action="#" th:action="@{'/admin'}" th:object="${cinema}" th:method="post">
-                            <div class="add-items d-flex">
-                                <input type="text" name="ci_no" th:field="*{ci_no}" class="form-control todo-list-input" placeholder="상영관 이름">
-                                <input type="text" class="form-control todo-list-input" placeholder="가로">
-                                <input type="text" class="form-control todo-list-input" placeholder="세로 연구소">
+                                <div class="add-items d-flex">
+                                <input type="text" id="name" class="form-control todo-list-input" th:field="*{name}" placeholder="상영관 이름">
+                                <input type="text" id="x" class="form-control todo-list-input" th:field="*{seat}" placeholder="가로">
+                                <input type="text" id="y" class="form-control todo-list-input" th:field="*{seat}" placeholder="세로 연구소">
                                 <button type="submit" class="add btn btn-primary todo-list-add-btn">Add</button>
                             </div>
                             </form>
