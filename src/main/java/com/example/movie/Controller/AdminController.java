@@ -2,8 +2,11 @@ package com.example.movie.Controller;
 
 import com.example.movie.Domain.CinemaDTO;
 import com.example.movie.Domain.MemberDTO;
+
+import com.example.movie.Entity.Cinema;
 import com.example.movie.Service.CinemaService;
 import com.example.movie.Service.MemberService;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +54,12 @@ public class AdminController {
     public String getCiadd(Model model) {
         model.addAttribute("cinema", CinemaDTO.builder().build());
         return "/admin/ciadd";
+    }
+
+    @PostMapping("/home")
+    public String postCinema(@ModelAttribute("cinema") Cinema cinema , int x , int y){
+        cinemaService.create(cinema, x , y);
+        return "/admin/cinemalist";
     }
 
     @GetMapping("/upform")

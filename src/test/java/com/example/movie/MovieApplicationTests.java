@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Scanner;
 
 @SpringBootTest
 class MovieApplicationTests {
@@ -20,9 +21,7 @@ class MovieApplicationTests {
     @Test
     void contextLoads() {
         api.dailyBoxOffice();
-        List<Movie> movieList =  dailyMovieRepository.findAll();
+        List<Movie> movieList = dailyMovieRepository.findAll();
         System.out.println(movieList);
-
     }
-
 }
