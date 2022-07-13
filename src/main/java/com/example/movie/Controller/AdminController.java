@@ -2,14 +2,19 @@ package com.example.movie.Controller;
 
 import com.example.movie.Domain.CinemaDTO;
 import com.example.movie.Domain.MemberDTO;
+
+import com.example.movie.Entity.Cinema;
 import com.example.movie.Service.CinemaService;
 import com.example.movie.Service.MemberService;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/admin")
@@ -53,6 +58,15 @@ public class AdminController {
         return "/admin/ciadd";
     }
 
+    @PostMapping("/cinemaadd")
+    public String postCinema1(@ModelAttribute("cinema") CinemaDTO cinema, HttpServletRequest request, Model model){
+        int x = Integer.parseInt(request.getParameter("x"));
+        int y = Integer.parseInt(request.getParameter("y"));
+        cinemaService.create(cinema, x, y);
+
+        return "/admin/cinemalist";
+    }
+
     @GetMapping("/upform")
     public String getUpform(){
         return "/admin/upform";
@@ -62,5 +76,12 @@ public class AdminController {
     public String getDetail(){
         return "/admin/detail";
     }
+
+    // 임시 좌석 보기
+    @GetMapping("/seat")
+    public String getSeat(){
+        return "/admin/seatTest";
+    }
+
 
 }

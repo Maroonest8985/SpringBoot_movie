@@ -9,4 +9,6 @@ public class CinemaDTO {
     private Long ci_no;
     private String name;
     private String seat;
+
+
 }
