@@ -23,11 +23,17 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)//스케쥴 번호
     private Long no;
     @Column(name = "date", nullable = false)//스케줄 날짜
-    private LocalDate date;
+    private String date;
     @Column(name = "time", nullable = false)//스케줄 시간
-    private LocalTime time;
+    private String time;
 
-    @ManyToOne
+
+    @OneToOne
+    @JoinColumn(name="cinema")
+    private Cinema cinema;
+
+
+    @OneToOne
     @JoinColumn(name = "movie")//영화 정보
     private Movie movie;
 }

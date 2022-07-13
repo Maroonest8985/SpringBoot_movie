@@ -39,12 +39,14 @@ public class MainController {
 
 
     @RequestMapping("/reserve/{idx}")
-    public String getReserve(@PathVariable("idx") String movieCd, Model model){
+    public String getReserve(@PathVariable("idx") String movieCd, Model model, HttpSession session){
         Movie movie = dailyMovieRepository.findMovieByMovieCd(movieCd);
+        MemberDTO member = (MemberDTO) session.getAttribute("login");
         model.addAttribute("movie", movie);
         model.addAttribute("reserve", ReserveDTO.builder().build());
         return "reserve";
     }
+
 
     @PostMapping("/reserve/reservation")
     public String makeReserve(@ModelAttribute("reserve") ReserveDTO reserveDTO, Model model, HttpSession session){
@@ -52,8 +54,6 @@ public class MainController {
 
         return "redirect:/reserve/complete";
     }
-
-
 
 
 }
