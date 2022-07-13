@@ -25,4 +25,7 @@ public interface DailyMovieRepository extends JpaRepository<Movie, Long> {
     List<String> findAllByTargetDt(String targetDt);
 
 
+    List<Movie> findByMovieNmContaining(String movieNm);
+
+
 }

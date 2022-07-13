@@ -29,11 +29,14 @@ public class MainController {
     @Autowired
     BoxOfficeApi api;
     @GetMapping("/")
-    public String getMain(Model model){
+    public String getMain(Model model,@RequestParam(required = false,defaultValue = "") String searchMovie){
         api.dailyBoxOffice();
-        List<Movie> movieList = dailyMovieRepository.findAll();
+        //List<Movie> movieList = dailyMovieRepository.findAll();
+        List<Movie> movieList = dailyMovieRepository.findByMovieNmContaining(searchMovie);
+
         System.out.println(movieList);
         model.addAttribute("movieList", movieList);
+
         return "index";
     }
 
@@ -53,6 +56,13 @@ public class MainController {
 
 
         return "redirect:/reserve/complete";
+    }
+
+    @GetMapping("/detail/{idx}")
+    public String getDetail(@PathVariable("idx") Long id,Model model){
+        Movie movie = dailyMovieRepository.findById(id).get();
+        model.addAttribute("movie",movie);
+        return "detail";
     }
 
 

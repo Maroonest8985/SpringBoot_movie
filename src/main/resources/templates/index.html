@@ -123,7 +123,9 @@
                                         <h5 class="fw-bolder">[[${movie.rnum}]] 위</h5>
                                     </div>
                                 </div>
-                                <img class="card-img-top" style="-webkit-user-drag:none;" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <a th:href="@{'/detail/' + ${movie.id}}">
+                                    <img class="card-img-top" style="-webkit-user-drag:none;" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                </a>
                                 <!-- Product image-->
                                 <!-- Product details-->
                                 <div class="card-body p-4">
