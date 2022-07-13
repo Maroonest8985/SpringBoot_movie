@@ -33,7 +33,7 @@ public class Schedule {
     private Cinema cinema;
 
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "movie")//영화 정보
     private Movie movie;
 }
