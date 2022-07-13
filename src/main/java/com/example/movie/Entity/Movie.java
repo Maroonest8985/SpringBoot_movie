@@ -67,7 +67,7 @@ public class Movie {
     private String audiChange;
 
     /*누적관객수*/
-    private String audiAcc;
+        private String audiAcc;
 
     /*해당일자에 상영한 스크린수*/
     private String scrnCnt;
