@@ -37,6 +37,19 @@ class MovieApplicationTests {
     }
 
     @Test
+    void myTest(){
+        String seatArr = "";
+        String seat = null;
+        int x = 5;
+        for(int i = 0; i <= x; i++){ // 0
+            char a = (char) (65+i);
+            for(int k = 1; k <= 5; k++){ //
+                System.out.println("{"+a+k+"}],");
+            }
+        }
+    }
+
+    @Test
     void arr() {
         int asciiValue = 65;
 
