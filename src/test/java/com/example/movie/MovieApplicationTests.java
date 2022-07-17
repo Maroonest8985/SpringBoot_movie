@@ -10,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.apache.coyote.http11.Constants.A;
-
 @SpringBootTest
 class MovieApplicationTests {
 
