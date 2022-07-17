@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.apache.coyote.http11.Constants.A;
+
 @SpringBootTest
 class MovieApplicationTests {
 
@@ -23,5 +25,18 @@ class MovieApplicationTests {
         api.dailyBoxOffice();
         List<Movie> movieList = dailyMovieRepository.findAll();
         System.out.println(movieList);
+    }
+
+    @Test
+    void myTest(){
+        String seatArr = "";
+        String seat = null;
+        int x = 5;
+        for(int i = 0; i <= x; i++){ // 0
+            char a = (char) (65+i);
+            for(int k = 1; k <= 5; k++){ //
+                System.out.println("{"+a+k+"}],");
+            }
+        }
     }
 }
