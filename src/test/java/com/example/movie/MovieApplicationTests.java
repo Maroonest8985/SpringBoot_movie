@@ -41,13 +41,6 @@ class MovieApplicationTests {
             }
         }
     }
-}
-
-    @Test
-    void member123() {
-        List<Cinema> cinemaList = cinemaService.readAll();
-        System.out.println(cinemaList);
-    }
 
     @Test
     void arr() {
