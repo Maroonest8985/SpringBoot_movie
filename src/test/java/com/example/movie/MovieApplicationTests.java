@@ -28,13 +28,6 @@ class MovieApplicationTests {
         List<Movie> movieList = dailyMovieRepository.findAll();
         System.out.println(movieList);
     }
-}
-
-    @Test
-    void member123() {
-        List<Cinema> cinemaList = cinemaService.readAll();
-        System.out.println(cinemaList);
-    }
 
     @Test
     void myTest(){
