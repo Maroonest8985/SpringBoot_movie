@@ -55,14 +55,14 @@
                                         <tr>
                                             <th> 번호 </th>
                                             <th> 상영관 </th>
-                                            <th> 좌석수 </th>
+                                            <th> 좌석 </th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="c : ${cinema}">
                                             <td th:text="${c.ci_no}"></td>
                                             <td th:text="${c.name}"></td>
-                                            <td th:text="${c.seat.split('],').length}"></td>
+                                            <td th:text="${c.seat}"></td>
                                         </tr>
 
                                         </tbody>
