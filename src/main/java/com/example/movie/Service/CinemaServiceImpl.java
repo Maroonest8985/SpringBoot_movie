@@ -21,8 +21,9 @@ public class CinemaServiceImpl implements CinemaService{
         String seatArr = "";
         String seat = null;
         for(int i = 0; i <= x; i++){ // 0
-            for(int k = 0; k <= y; k++){ //
-                seatArr = seatArr+"{"+i+","+k+"}],";//[0,0]],[0,1]],[0,2]],[0,3]],[0,4]]
+            char a = (char) (65+i);
+            for(int k = 1; k <= y; k++){ //
+                seatArr = seatArr+"{"+a+","+k+"}],";//[0,0]],[0,1]],[0,2]],[0,3]],[0,4]]
             }
         }
 

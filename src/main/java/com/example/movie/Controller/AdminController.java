@@ -50,7 +50,11 @@ public class AdminController {
     }
 
     @GetMapping("/cinemalist")
-    public String getCinema() {return "/admin/cinemalist";}
+    public String getCinema(@ModelAttribute("cinema") CinemaDTO cinema, Model model)
+    {
+        model.addAttribute("cinema",cinemaService.readAll());
+        return "/admin/cinemalist";
+    }
 
     @GetMapping("/ciadd")
     public String getCiadd(Model model) {
