@@ -12,9 +12,6 @@ import java.util.List;
 
 public interface DailyMovieRepository extends JpaRepository<Movie, Long> {
 
-    @Query("delete from Movie m where m.targetDt < :targetDt")
-    long deleteAllWithTarget(@Param("targetDt") String targetDt);
-
     @Transactional
     @Modifying
     long deleteMoviesByTargetDtNotLike(String targetDt);
@@ -26,6 +23,5 @@ public interface DailyMovieRepository extends JpaRepository<Movie, Long> {
 
 
     List<Movie> findByMovieNmContaining(String movieNm);
-
 
 }
