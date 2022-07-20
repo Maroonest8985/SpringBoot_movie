@@ -28,10 +28,4 @@ class MovieApplicationTests {
         System.out.println("결과 ----------------->"+movieList);
     }
 
-    @Test
-    void load1(){
-
-
-        memberRepository.findAll();
-    }
 }
