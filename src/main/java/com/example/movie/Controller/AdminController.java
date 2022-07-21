@@ -68,7 +68,7 @@ public class AdminController {
         int y = Integer.parseInt(request.getParameter("y"));
         cinemaService.create(cinema, x, y);
 
-        return "/admin/cinemalist";
+        return "redirect:/admin/cinemalist";
     }
 
     @GetMapping("/upform")
