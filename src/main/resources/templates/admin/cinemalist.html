@@ -61,10 +61,9 @@
                                         <tbody>
                                         <tr th:each="c : ${cinema}">
                                             <td th:text="${c.ci_no}"></td>
-                                            <td th:text="${c.name}"></td>
+                                            <td><a th:href="@{'/admin/' + ${c.ci_no}}">[[${c.name}]]</a></td>
                                             <td th:text="${c.seat.split(', ').length}"></td>
                                         </tr>
-
                                         </tbody>
                                     </table>
                                 </div>

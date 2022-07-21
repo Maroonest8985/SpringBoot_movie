@@ -76,9 +76,9 @@ public class AdminController {
         return "/admin/upform";
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/{ci_no}")
     public String getDetail(){
-        return "/admin/detail";
+        return "/admin/detailTest";
     }
 
     // 임시 좌석 보기
