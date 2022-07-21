@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default_layout}">
+
+
+<!-- 응애 네이버 검색 api -->
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shop in style mod</h1>
+                <p class="lead fw-normal text-white-50 mb-0">With this shop hompage template</p>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5" style="overflow: hidden">
+            <div id="items" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4" style="flex-wrap: nowrap;">
+                <th:block th:each="na : ${naver}">
+                    <div class="col mb-5 items" style="width: 300px;">
+                        <div class="card h-100">
+                            <div class="p-1 mt-1">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <!--<h5 class="fw-bolder">[[${na.director}]] 감독</h5>-->
+                                    <span th:text="${na.title}"/>
+                                </div>
+                            </div>
+
+
+                                <!--<img class="card-img-top" style="-webkit-user-drag:none;" src="#" th:src="@{${na.image}}" alt="..." />-->
+
+
+                            <!-- Product image-->
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <!--<h5 class="fw-bolder">[[${na.title}]]</h5>-->
+                                    <!-- Product price-->
+                                    <!--제작년도 : [[${na.pubDate}]]-->
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+
+                        </div>
+                    </div>
+                </th:block>
+
+            </div>
+        </div>
+    </section>
+</div>
+</html>

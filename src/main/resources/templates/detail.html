@@ -132,7 +132,9 @@
                         <li><i class="fa fa-check text-success"></i>누적 관객수 [[${movie.audiAcc}]]명</li>
                         <li><i class="fa fa-check text-success"></i>당일 스크린수 [[${movie.scrnCnt}]]개</li>
                     </ul>
-                    <button class="btn btn-primary btn-rounded">예매하기</button>
+                    <a th:if="${session.login} == null" class="btn btn-outline-dark mt-auto" href="#" onclick="confirmLogin();">예매하기</a>
+                    <a th:unless="${session.login} == null" class="btn btn-outline-dark mt-auto"  th:href="@{'/reserve/'+${movie.movieCd}}">예매하기</a></button>
+
                 </div>
 
             </div>

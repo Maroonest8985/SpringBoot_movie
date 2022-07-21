@@ -1,7 +1,9 @@
 package com.example.movie.Controller;
 
 import com.example.movie.Api.BoxOfficeApi;
+
 import com.example.movie.Domain.MemberDTO;
+import com.example.movie.Domain.MoviesResponseDto;
 import com.example.movie.Domain.ReserveDTO;
 import com.example.movie.Entity.Member;
 import com.example.movie.Entity.Movie;
@@ -9,6 +11,7 @@ import com.example.movie.Entity.Reserve;
 import com.example.movie.Repository.DailyMovieRepository;
 import com.example.movie.Repository.MemberRepository;
 import com.example.movie.Service.MemberService;
+import com.example.movie.Service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +31,10 @@ public class MainController {
     MemberService memberService;
     @Autowired
     BoxOfficeApi api;
+    @Autowired
+    MovieService movieService;
+
+
     @GetMapping("/")
     public String getMain(Model model,@RequestParam(required = false,defaultValue = "") String searchMovie){
         api.dailyBoxOffice();
@@ -61,9 +68,17 @@ public class MainController {
     @GetMapping("/detail/{idx}")
     public String getDetail(@PathVariable("idx") Long id,Model model){
         Movie movie = dailyMovieRepository.findById(id).get();
+        //MoviesResponseDto naver = movieService.findByKeyword(movie);
         model.addAttribute("movie",movie);
         return "detail";
     }
-
+/*  수정해야하는 거.,...
+    @GetMapping("/movie/{keyword}")
+    public String getSearch(@PathVariable String keyword, Model model){
+        //MoviesResponseDto naver =  movieService.findByKeyword(keyword);
+        model.addAttribute("naver",movieService.findByKeyword(keyword));
+        return "/moviesearch";
+    }
+*/
 
 }
