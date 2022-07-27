@@ -20,10 +20,10 @@ public class CinemaServiceImpl implements CinemaService{
 
         String seatArr = "";
         String seat = null;
-        for(int i = 0; i <= x; i++){ // 0
+        for(int i = 0; i <= x-1; i++){ // 0
             char a = (char) (65+i);
             for(int k = 1; k <= y; k++){ //
-                seatArr = seatArr+"{"+a+","+k+"}],";//[0,0]],[0,1]],[0,2]],[0,3]],[0,4]]
+                seatArr = seatArr+""+a+""+k+", ";//[0,0]],[0,1]],[0,2]],[0,3]],[0,4]]
             }
         }
 

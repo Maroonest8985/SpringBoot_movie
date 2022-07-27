@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/admin/nav :: headfrag}">
+
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:../../partials/_sidebar.html -->
+    <nav th:replace="~{/admin/nav :: navfrag}"/>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_navbar.html -->
+        <nav class="navbar p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo-mini" href="/home"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item w-100">
+                        <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
+                            <input type="text" class="form-control" placeholder="Search products">
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Basic Tables </h3>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Basic tables</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="row">
+                    <form th:action="@{'/admin/list'}" th:method="get">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">좌석수 수정</h4>
+                                    <p class="card-description"> Add class <code>.table-striped</code>
+                                    </p>
+                                    <div id="seatPlace" class="col-6">
+                                        좌석
+                                        <table style="width: 100%; border : 1px solid black; text-align: center">
+                                            <tr>
+                                                <td colspan="8">SCREEN</td>
+                                            </tr>
+                                            <tr th:each="c : ${cinema}">
+                                                <td th:text="${c.ci_no}"></td>
+                                                <td><a th:href="@{'/admin/' + ${c.ci_no}}">[[${c.name}]]</a></td>
+                                                <td th:text="${c.seat.split(', ').length}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td id="A1" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                                <td id="A2" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                                <td id="A3" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                                <td id="A4" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                                <td id="A5" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                                <td id="A6" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                                <td id="A7" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="B1" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B1</td>
+                                                <td id="B2" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B2</td>
+                                                <td id="B3" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B3</td>
+                                                <td id="B4" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B4</td>
+                                                <td id="B5" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B5</td>
+                                                <td id="B6" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B6</td>
+                                                <td id="B7" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B7</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+
+            <footer class="footer" th:replace="~{/admin/footer :: footerfrag}">
+
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<div th:replace="~{/admin/footer :: scriptfrag}">
+
+</div>
+</body>
+</html>

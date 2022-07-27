@@ -68,7 +68,7 @@ public class AdminController {
         int y = Integer.parseInt(request.getParameter("y"));
         cinemaService.create(cinema, x, y);
 
-        return "/admin/cinemalist";
+        return "redirect:/admin/cinemalist";
     }
 
     @GetMapping("/upform")
@@ -76,9 +76,9 @@ public class AdminController {
         return "/admin/upform";
     }
 
-    @GetMapping("/detail")
+    @GetMapping("/{ci_no}")
     public String getDetail(){
-        return "/admin/detail";
+        return "/admin/detailTest";
     }
 
     // 임시 좌석 보기
