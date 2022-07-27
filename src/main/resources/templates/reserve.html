@@ -8,6 +8,8 @@
     var seatList = [];
     var date = "";
     var time = "";
+    var moviecd = window.location.pathname;
+    var moviecdShort = moviecd.replace("/reserve/", "");
     function selectSeat(id){
         var seat = document.getElementById(id);
         if(seat.classList.contains("bg-dark")){//active면
@@ -23,33 +25,37 @@
     }
 
     function selectDate(id){
-        var times = document.getElementsByClassName("time");
-        for(var i=0; i<times.length; i++){
-            times[i].classList.remove("active");
-        }
-        time = "";
+        time = "";//time초기화
         console.log(time + "selectDate에서 리셋한 시간");
-        var dateRow = document.getElementById(id);
-        for(var i=1; i<=5; i++){
-            var str = "date"+i;
-            var selDate = document.getElementById(str);
-            selDate.classList.remove("active");
+        var dateRow = document.getElementsByClassName("date");//class에 date포함한 DOM
+        console.log("daterow"+dateRow);
+        var selDateRow = document.getElementById(id);//클릭한 DOM
+        console.log("selDateRow"+selDateRow);
+        console.log(dateRow.length);
+        // for(var i=0; i<=dateRow.length; i++){
+        //     dateRow.
+        // }
+        for(var i =0; i < dateRow.length; i++){
+            dateRow[i].classList.remove("active");
         }
-        if(dateRow.classList.contains("active")){//active면
-            dateRow.classList.remove("active");
+
+        if(selDateRow.classList.contains("active")){//active면
+            selDateRow.classList.remove("active");
             date = "";
             console.log(date);
         }else{
-            dateRow.classList.add("active");
-            date = dateRow.innerHTML;
+            selDateRow.classList.add("active");
+            date = selDateRow.innerHTML;
             console.log(date);
+
         }
         console.log(time);
     }
 
     function selectTime(id){
         var timeRow = document.getElementById(id);
-        for(var i=1; i<=5; i++){
+        var times = document.getElementsByClassName("time");
+        for(var i=0; i<times.length; i++){
             var str = "time"+i;
             var selTime = document.getElementById(str);
             selTime.classList.remove("active");
@@ -64,6 +70,31 @@
             console.log(time);
         }
     }
+
+    $(document).ready(function(){
+        $(".date").click(function(){
+            $.ajax({
+                type: "GET",
+                url : "/reserve/getTime",
+                data : {moviecd : moviecdShort, date : date },
+                success: function(results){
+                    var timeTable = document.getElementById("timePlace");
+                    var timeHtml = "";
+                    for(var i=0; i < results.length; i++){
+                        timeHtml = timeHtml + "<li id=\""+"time"+i+"\" onclick=\"selectTime(this.id);\" class=\"list-group-item time\">"+results[i]+"</li>\n"
+                    }
+                    timeTable.innerHTML = "시간"+"                            <div class=\"px-3\">\n" +
+                        "                            <ul class=\"list-group\">\n" + timeHtml +
+                        "                                 </ul>\n" +
+                        "                        </div>\n"
+
+                },
+                error: function(data){
+                    alert("에러 발생. " + data);
+                }
+            })
+        });
+    });
     function reserveComplete(){
         var formDate = document.getElementById("confirmDate");
         var formTime = document.getElementById("confirmTime");
@@ -77,6 +108,7 @@
         formSeat.setAttribute('value', seat);
         formNum.setAttribute('value', num);
     }
+
 </script>
 <div layout:fragment="content">
         <!-- Header-->
@@ -97,25 +129,14 @@
                             날짜
                             <div class="px-3">
                                 <ul class="list-group">
-                                    <li id="date1" onclick="selectDate(this.id);" class="list-group-item">7월 9일</li>
-                                    <li id="date2" onclick="selectDate(this.id);" class="list-group-item">7월 10일</li>
-                                    <li id="date3" onclick="selectDate(this.id);" class="list-group-item">7월 11일</li>
-                                    <li id="date4" onclick="selectDate(this.id);" class="list-group-item">7월 12일</li>
-                                    <li id="date5" onclick="selectDate(this.id);" class="list-group-item">7월 13일</li>
+                                    <th:block th:each="date : ${date}">
+                                        <li th:id="date+${dateStat.index}" onclick="selectDate(this.id);" class="list-group-item date">[[${date}]]</li>
+                                    </th:block>
                                 </ul>
                             </div>
                         </div>
                         <div id="timePlace" class="col-3">
                             시간
-                            <div class="px-3">
-                            <ul class="list-group">
-                                <li id="time1" onclick="selectTime(this.id);" class="list-group-item time">08:00</li>
-                                <li id="time2" onclick="selectTime(this.id);" class="list-group-item time">10:00</li>
-                                <li id="time3" onclick="selectTime(this.id);" class="list-group-item time">13:00</li>
-                                <li id="time4" onclick="selectTime(this.id);" class="list-group-item time">15:00</li>
-                                <li id="time5" onclick="selectTime(this.id);" class="list-group-item time">19:00</li>
-                            </ul>
-                        </div>
                         </div>
                         <div id="seatPlace" class="col-6">
                             좌석

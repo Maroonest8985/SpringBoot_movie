@@ -37,6 +37,5 @@ public class Member {
     @Column(name = "birth", nullable = false)
     private String birth;
 
-    @OneToMany(mappedBy = "member")
-    private List<Reserve> reserveList = new ArrayList<>();
+
 }

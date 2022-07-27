@@ -29,14 +29,13 @@ public class Reserve {
     private String seat;
 
 
-
     @ManyToOne
     @JoinColumn(name = "member")//예약 회원정보
-    private Member member;
+    private Member member;//멤버 하나에 대해 여러가지 예약 리스트가 존재
+
 
     @ManyToOne
     @JoinColumn(name = "movie")//예약 영화정보
-    private Movie movie;
-
+    private Movie movie;//영화 하나에 대해 여러가지 예약 리스트가 존재
 
 }
