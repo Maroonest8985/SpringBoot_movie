@@ -8,6 +8,8 @@
     var seatList = [];
     var date = "";
     var time = "";
+    var moviecd = window.location.pathname;
+    var moviecdShort = moviecd.replace("/reserve/", "");
     function selectSeat(id){
         var seat = document.getElementById(id);
         if(seat.classList.contains("bg-dark")){//active면
@@ -33,6 +35,10 @@
         // for(var i=0; i<=dateRow.length; i++){
         //     dateRow.
         // }
+        for(var i =0; i < dateRow.length; i++){
+            dateRow[i].classList.remove("active");
+        }
+
         if(selDateRow.classList.contains("active")){//active면
             selDateRow.classList.remove("active");
             date = "";
@@ -41,13 +47,15 @@
             selDateRow.classList.add("active");
             date = selDateRow.innerHTML;
             console.log(date);
+
         }
         console.log(time);
     }
 
     function selectTime(id){
         var timeRow = document.getElementById(id);
-        for(var i=1; i<=5; i++){
+        var times = document.getElementsByClassName("time");
+        for(var i=0; i<times.length; i++){
             var str = "time"+i;
             var selTime = document.getElementById(str);
             selTime.classList.remove("active");
@@ -62,6 +70,31 @@
             console.log(time);
         }
     }
+
+    $(document).ready(function(){
+        $(".date").click(function(){
+            $.ajax({
+                type: "GET",
+                url : "/reserve/getTime",
+                data : {moviecd : moviecdShort, date : date },
+                success: function(results){
+                    var timeTable = document.getElementById("timePlace");
+                    var timeHtml = "";
+                    for(var i=0; i < results.length; i++){
+                        timeHtml = timeHtml + "<li id=\""+"time"+i+"\" onclick=\"selectTime(this.id);\" class=\"list-group-item time\">"+results[i]+"</li>\n"
+                    }
+                    timeTable.innerHTML = "시간"+"                            <div class=\"px-3\">\n" +
+                        "                            <ul class=\"list-group\">\n" + timeHtml +
+                        "                                 </ul>\n" +
+                        "                        </div>\n"
+
+                },
+                error: function(data){
+                    alert("에러 발생. " + data);
+                }
+            })
+        });
+    });
     function reserveComplete(){
         var formDate = document.getElementById("confirmDate");
         var formTime = document.getElementById("confirmTime");
@@ -75,31 +108,6 @@
         formSeat.setAttribute('value', seat);
         formNum.setAttribute('value', num);
     }
-    $("#request").click(function(){
-
-        // json 형식으로 데이터 set
-        var params = {
-            name      : $("#name").val()
-            , sex       : $("#sex").val()
-            , age       : $("#age").val()
-            , tellPh    : $("#tellPh").val()
-        }
-
-        // ajax 통신
-        $.ajax({
-            type : "POST",            // HTTP method type(GET, POST) 형식이다.
-            url : "/test/ajax",      // 컨트롤러에서 대기중인 URL 주소이다.
-            data : params,            // Json 형식의 데이터이다.
-            success : function(res){ // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                // 응답코드 > 0000
-                alert(res.code);
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-                alert("통신 실패.")
-            }
-        });
-    });
-
 
 </script>
 <div layout:fragment="content">
@@ -121,23 +129,14 @@
                             날짜
                             <div class="px-3">
                                 <ul class="list-group">
-                                    <th:block th:each="schedule : ${schedule}">
-                                        <li th:id="date+${schedule.no}" onclick="selectDate(this.id);" class="list-group-item date">[[${schedule.date}]]</li>
+                                    <th:block th:each="date : ${date}">
+                                        <li th:id="date+${dateStat.index}" onclick="selectDate(this.id);" class="list-group-item date">[[${date}]]</li>
                                     </th:block>
                                 </ul>
                             </div>
                         </div>
                         <div id="timePlace" class="col-3">
                             시간
-                            <div class="px-3">
-                            <ul class="list-group">
-
-                                    <li id="time2" onclick="selectTime(this.id);" class="list-group-item time">10:00</li>
-                                <li id="time3" onclick="selectTime(this.id);" class="list-group-item time">13:00</li>
-                                <li id="time4" onclick="selectTime(this.id);" class="list-group-item time">15:00</li>
-                                <li id="time5" onclick="selectTime(this.id);" class="list-group-item time">19:00</li>
-                            </ul>
-                        </div>
                         </div>
                         <div id="seatPlace" class="col-6">
                             좌석
@@ -187,11 +186,11 @@
                                             <label for="confirmDate" class="form-label">날짜</label>
                                             <input name="date" th:field="*{date}" type="text" class="form-control" id="confirmDate" readonly>
                                         </div>
-                                        <div class="mb-3" style="display: none">
+                                        <div class="mb-3">
                                             <label for="confirmTime" class="form-label">시간</label>
                                             <input name="time" th:field="*{time}" type="text" class="form-control" id="confirmTime" readonly>
                                         </div>
-                                        <div class="mb-3" style="display: none">
+                                        <div class="mb-3">
                                             <label for="confirmSeat" class="form-label">좌석</label>
                                             <input name="seat" th:field="*{seat}" type="text" class="form-control" id="confirmSeat" readonly>
                                         </div>

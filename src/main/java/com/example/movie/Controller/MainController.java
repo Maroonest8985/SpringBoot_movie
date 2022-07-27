@@ -14,12 +14,19 @@ import com.example.movie.Repository.MemberRepository;
 import com.example.movie.Repository.ScheduleRepository;
 import com.example.movie.Service.MemberService;
 import com.example.movie.Service.MovieService;
+import com.example.movie.Service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -33,6 +40,8 @@ public class MainController {
     MemberService memberService;
     @Autowired
     ScheduleRepository scheduleRepository;
+    @Autowired
+    ScheduleService scheduleService;
     @Autowired
     BoxOfficeApi api;
     @Autowired
@@ -54,19 +63,33 @@ public class MainController {
     }
 
 
-    @RequestMapping("/reserve/{idx}")
+    @GetMapping("/reserve/{idx}")
     public String getReserve(@PathVariable("idx") String movieCd, Model model, HttpSession session){
         Movie movie = dailyMovieRepository.findMovieByMovieCd(movieCd);
-        List<String> dateList = scheduleRepository.getDateByMovieCd(movieCd);
-        //List<String> timeList = scheduleRepository.getTimeByMovieCd();
+        List<String> dateList = new ArrayList<>();
+        dateList = scheduleService.getDate(movieCd);
         System.out.println(dateList);
         MemberDTO member = (MemberDTO) session.getAttribute("login");
         model.addAttribute("date", dateList);
-        model.addAttribute("time", timeList);
+        //model.addAttribute("time", timeList);
         model.addAttribute("movie", movie);
         model.addAttribute("member", member);
         model.addAttribute("reserve", ReserveDTO.builder().build());
         return "reserve";
+    }
+
+
+    @RequestMapping(value = "/reserve/getTime", method=RequestMethod.GET)
+    @ResponseBody
+    public ArrayList<String> getTimes(@RequestParam("moviecd") String movieCd, @RequestParam("date") String date) throws ParseException {
+        System.out.println("ajax 작동중" + date);
+        System.out.println("ajax 작동중" + movieCd);
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date dated = transFormat.parse(date);
+        System.out.println(scheduleService.getTime(movieCd, dated));
+        ArrayList<String> dates = scheduleService.getTime(movieCd, dated);
+        System.out.println("ajax 작동중" + dates);
+        return dates;
     }
 
 

@@ -1,12 +1,15 @@
 package com.example.movie.Entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -22,18 +25,17 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//스케쥴 번호
     private Long no;
-    @Column(name = "date", nullable = false)//스케줄 날짜
-    private String date;
-    @Column(name = "time", nullable = false)//스케줄 시간
-    private String time;
-
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="Asia/Seoul")
+    private Date date;
+    @Temporal(TemporalType.TIME)
+    private Date time;
+    @Column(name = "moviecd", nullable = false)
+    private String moviecd;
 
     @OneToOne
     @JoinColumn(name="cinema")
     private Cinema cinema;
 
 
-    @OneToOne
-    @JoinColumn(name = "movie")//영화 정보
-    private Movie movie;
 }
