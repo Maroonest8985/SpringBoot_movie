@@ -1,6 +1,7 @@
 package com.example.movie.Domain;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Date;
 
@@ -10,7 +11,7 @@ public class MoviesResponseDto {
     private Item[] items;
 
     @Data
-    static class Item {
+    public static class Item {
         public String title; //제목
         public String link; //링크
         public String image; //이미지
@@ -20,4 +21,5 @@ public class MoviesResponseDto {
         public String actor; //배우
         public float userRating; //평점
     }
+
 }
