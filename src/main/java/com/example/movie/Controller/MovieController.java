@@ -18,11 +18,13 @@ public class MovieController {
 
     private final MovieService movieService;
 
-
+/*
     @GetMapping("/movie/{keyword}")
     public MoviesResponseDto get(@PathVariable String keyword){
+
         return movieService.findByKeyword(keyword);
     }
+ */
 
 
 
