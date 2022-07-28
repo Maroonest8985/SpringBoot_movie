@@ -3,26 +3,25 @@ package com.example.movie.Controller;
 import com.example.movie.Api.BoxOfficeApi;
 
 import com.example.movie.Domain.MemberDTO;
+import com.example.movie.Domain.MoviesDto;
 import com.example.movie.Domain.MoviesResponseDto;
 import com.example.movie.Domain.ReserveDTO;
 import com.example.movie.Entity.Member;
 import com.example.movie.Entity.Movie;
 import com.example.movie.Entity.Reserve;
-import com.example.movie.Entity.Schedule;
 import com.example.movie.Repository.DailyMovieRepository;
 import com.example.movie.Repository.MemberRepository;
 import com.example.movie.Repository.ScheduleRepository;
 import com.example.movie.Service.MemberService;
 import com.example.movie.Service.MovieService;
 import com.example.movie.Service.ScheduleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,8 +52,6 @@ public class MainController {
         api.dailyBoxOffice();
         //List<Movie> movieList = dailyMovieRepository.findAll();
         List<Movie> movieList = dailyMovieRepository.findByMovieNmContaining(searchMovie);
-
-
 
         System.out.println(movieList);
         model.addAttribute("movieList", movieList);
@@ -107,13 +104,19 @@ public class MainController {
         model.addAttribute("movie",movie);
         return "detail";
     }
-/*  수정해야하는 거.,...
+//  수정해야하는 거.,...
     @GetMapping("/movie/{keyword}")
     public String getSearch(@PathVariable String keyword, Model model){
-        //MoviesResponseDto naver =  movieService.findByKeyword(keyword);
-        model.addAttribute("naver",movieService.findByKeyword(keyword));
-        return "/moviesearch";
+
+        MoviesResponseDto naver =  movieService.findByKeyword(keyword);
+        MoviesResponseDto.Item[] movie = naver.getItems();
+        System.out.println(movie);
+        //Object title = naver.getItems();// title을 Object -> MoviesDto 형식으로 변환
+        model.addAttribute("naver", naver);
+
+        model.addAttribute("movies", naver.getItems());
+        return "moviesearch";
     }
-*/
+
 
 }
