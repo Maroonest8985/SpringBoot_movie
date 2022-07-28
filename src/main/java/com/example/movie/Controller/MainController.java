@@ -110,13 +110,19 @@ public class MainController {
 
         MoviesResponseDto naver =  movieService.findByKeyword(keyword);
         MoviesResponseDto.Item[] movie = naver.getItems();
-        System.out.println(movie);
+        //System.out.println(movie);
         //Object title = naver.getItems();// title을 Object -> MoviesDto 형식으로 변환
         model.addAttribute("naver", naver);
 
         model.addAttribute("movies", naver.getItems());
         return "moviesearch";
     }
-
+    @GetMapping("/movies/{keyword}")
+    public String getSearch2(@PathVariable String keyword, Model model) throws com.nimbusds.jose.shaded.json.parser.ParseException {
+        MoviesDto naver = movieService.findByKeyword2(keyword);
+        System.out.println(naver);
+        model.addAttribute("naver", naver);
+        return "moviesearch";
+    }
 
 }

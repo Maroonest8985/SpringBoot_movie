@@ -18,7 +18,31 @@
             </div>
         </div>
     </header>
-    <span th:text="${movies}"></span>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th> No </th>
+            <th> UserName </th>
+            <th> Email </th>
+            <th> Phone </th>
+            <th> Birth </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="naver : ${naver}">
+            <td class="py-1">
+                <span th:text="${naver.title}"></span></td>
+            </td>
+            <td><span th:text="${naver.link}"></span></td>
+
+            <td><span th:text="${naver.director}"></span></td>
+            <td><span th:text="${naver.actor}"></span></td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
 </div>
 
 </div>
