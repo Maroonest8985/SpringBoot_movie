@@ -12,9 +12,11 @@ import com.example.movie.Entity.Reserve;
 import com.example.movie.Repository.DailyMovieRepository;
 import com.example.movie.Repository.MemberRepository;
 import com.example.movie.Repository.ScheduleRepository;
+import com.example.movie.Service.CinemaService;
 import com.example.movie.Service.MemberService;
 import com.example.movie.Service.MovieService;
 import com.example.movie.Service.ScheduleService;
+import com.nimbusds.oauth2.sdk.util.date.SimpleDate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +47,8 @@ public class MainController {
     BoxOfficeApi api;
     @Autowired
     MovieService movieService;
-
+    @Autowired
+    CinemaService cinemaService;
 
     @GetMapping("/")
     public String getMain(Model model,@RequestParam(required = false,defaultValue = "") String searchMovie){
@@ -89,6 +92,21 @@ public class MainController {
         ArrayList<String> dates = scheduleService.getTime(movieCd, dated);
         System.out.println("ajax 작동중" + dates);
         return dates;
+    }
+
+    @RequestMapping(value = "/reserve/getCinema", method=RequestMethod.GET)
+    @ResponseBody
+    public String getCinema(@RequestParam("moviecd") String movieCd, @RequestParam("time") String time, @RequestParam("date") String date) throws ParseException {
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat transFormatTime = new SimpleDateFormat("HH:mm:ss");
+
+        Date dated = transFormat.parse(date);
+        Date timed = transFormatTime.parse(time);
+        Long ci_no = scheduleRepository.findCinemaByMoviecdAndDateAndTime(movieCd, dated, timed);
+        String seat = cinemaService.seat(ci_no);//상영관 좌석정보
+        //예약된 좌석정보 Reserve에서 가져옴
+
+        return seat;
     }
 
 
