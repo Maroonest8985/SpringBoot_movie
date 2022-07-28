@@ -21,6 +21,11 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     @Query("select s.time from Schedule s where s.moviecd = :movieCd and s.date = :date order by s.time asc")
     ArrayList<String> findTimeByMoviecdAndDate(@Param("movieCd") String movieCd, @Param("date") Date date);
+
+    @Query("select s.cinema from Schedule s where s.moviecd = :movieCd and s.date = :date and s.time = :time")
+    Long findCinemaByMoviecdAndDateAndTime(@Param("movieCd") String movieCd, @Param("date") Date date, @Param("time") Date time);
+
+
 //    @Query("select distinct s.time from Schedule s where s.movie.movieCd = :movieCd and s.date =: date order by s.time")
 //    List<String> getTimeByMovieCd(@Param("movieCd") String movieCd, @Param("date") String time);
 //

@@ -11,6 +11,6 @@ import java.util.List;
 @Service
 public interface CinemaService {
     void create(CinemaDTO cinema, int x, int y);
-    String[] seat(String seatArr);
+    String seat(Long no);
     List<Cinema> readAll();
 }

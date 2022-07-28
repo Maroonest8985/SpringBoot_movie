@@ -43,9 +43,10 @@ public class CinemaServiceImpl implements CinemaService{
 
 
     @Override
-    public String[] seat(String seatArr){
-        String[] strArray = seatArr.split("], ");//"[0,1], [0,2], [0,3]..."
-        return strArray;
+    public String seat(Long no){
+        String seat = cinemaRepository.getSeatString(no);
+
+        return seat;
     }
 
 

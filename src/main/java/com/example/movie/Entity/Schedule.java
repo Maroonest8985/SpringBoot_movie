@@ -32,10 +32,8 @@ public class Schedule {
     private Date time;
     @Column(name = "moviecd", nullable = false)
     private String moviecd;
-
-    @OneToOne
-    @JoinColumn(name="cinema")
-    private Cinema cinema;
+    @Column(name = "cinema", nullable = false)
+    private Long cinema;
 
 
 }
