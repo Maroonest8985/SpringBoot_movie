@@ -13,4 +13,6 @@ public interface CinemaService {
     void create(CinemaDTO cinema, int x, int y);
     String[] seat(String seatArr);
     List<Cinema> readAll();
+    void update(CinemaDTO cinema);
+    CinemaDTO findById(Long id);
 }

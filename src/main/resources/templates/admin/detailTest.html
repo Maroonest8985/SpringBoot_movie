@@ -1,13 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{/admin/nav :: headfrag}">
 
 </head>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+        var seat = "[[${cinema.seat}]]";
+        var seatArray = seat.split(", ");
+        var tmpSeat = "A";
+        var html = "좌석\n" +
+            "                                        <table style=\"width: 100%; border : 1px solid black; text-align: center\">\n" +
+            "                                            <tr>\n" +
+            "                                                <td colspan=\"8\">SCREEN</td>\n" +
+            "                                            </tr>"+
+            "<tr>";
+        for(var i =0; i < seatArray.length; i++){
+            if(seatArray[i].charAt(0) == tmpSeat){
+                var html1 = "<td id=\""+seatArray[i]+"\" onclick=\"selectSeat(this.id);\" class=\"mx-1\" style=\"border : 1px solid black; width: 5px;\">"+seatArray[i]+"</td>\n";
+                html = html + html1;
+            }else{
+                var html2 = "</tr><tr>"+"<td id=\""+seatArray[i]+"\" onclick=\"selectSeat(this.id);\" class=\"mx-1\" style=\"border : 1px solid black; width: 5px;\">"+seatArray[i]+"</td>\n";
+                html = html + html2;
+                tmpSeat = seatArray[i].charAt(0);
+            }
+        }
+        var seatPlace = document.getElementById("seatPlace1");
+        seatPlace.innerHTML = html;
+    });
+
+</script>
 <body>
 <div class="container-scroller">
     <!-- partial:../../partials/_sidebar.html -->
     <nav th:replace="~{/admin/nav :: navfrag}"/>
     <!-- partial -->
+
     <div class="container-fluid page-body-wrapper">
         <!-- partial:../../partials/_navbar.html -->
         <nav class="navbar p-0 fixed-top d-flex flex-row">
@@ -48,36 +79,8 @@
                                     <h4 class="card-title">좌석수 수정</h4>
                                     <p class="card-description"> Add class <code>.table-striped</code>
                                     </p>
-                                    <div id="seatPlace" class="col-6">
-                                        좌석
-                                        <table style="width: 100%; border : 1px solid black; text-align: center">
-                                            <tr>
-                                                <td colspan="8">SCREEN</td>
-                                            </tr>
-                                            <tr th:each="c : ${cinema}">
-                                                <td th:text="${c.ci_no}"></td>
-                                                <td><a th:href="@{'/admin/' + ${c.ci_no}}">[[${c.name}]]</a></td>
-                                                <td th:text="${c.seat.split(', ').length}"></td>
-                                            </tr>
-                                            <tr>
-                                                <td id="A1" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
-                                                <td id="A2" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
-                                                <td id="A3" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
-                                                <td id="A4" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
-                                                <td id="A5" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
-                                                <td id="A6" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
-                                                <td id="A7" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">A1</td>
-                                            </tr>
-                                            <tr>
-                                                <td id="B1" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B1</td>
-                                                <td id="B2" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B2</td>
-                                                <td id="B3" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B3</td>
-                                                <td id="B4" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B4</td>
-                                                <td id="B5" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B5</td>
-                                                <td id="B6" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B6</td>
-                                                <td id="B7" onclick="selectSeat(this.id);" class="mx-1" style="border : 1px solid black; width: 5px;">B7</td>
-                                            </tr>
-                                        </table>
+                                    <div id="seatPlace1" class="col-6">
+
                                     </div>
                                 </div>
                             </div>

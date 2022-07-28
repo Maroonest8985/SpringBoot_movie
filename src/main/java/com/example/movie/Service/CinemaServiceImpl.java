@@ -6,6 +6,7 @@ import com.example.movie.Repository.CinemaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CinemaServiceImpl implements CinemaService{
@@ -39,6 +40,23 @@ public class CinemaServiceImpl implements CinemaService{
     public List<Cinema> readAll(){
         List<Cinema> cinemaList = cinemaRepository.findAll();
         return cinemaList;
+    }
+
+    @Override
+    public CinemaDTO findById(Long id){
+        Cinema cinema = cinemaRepository.findById(id).orElse(null);
+
+        CinemaDTO cinemaDTO = entityToDto(cinema);
+        return cinemaDTO;
+    }
+
+    @Override
+    public void update(CinemaDTO cinema) {
+        String[] strArray = cinema.getSeat().split(", ");
+        // update를 할때 배열로 된 seat를 사용하고싶어
+        // 화면에 띄우고싶다 -> 프론트에
+        // 컨트롤러에서 뷰에 보내는 정보는 배열로 된 정보를 보내
+        // 그 배열을 프론트에서 for문을 돌리는거임
     }
 
 

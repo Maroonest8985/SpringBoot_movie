@@ -4,24 +4,27 @@ import com.example.movie.Domain.CinemaDTO;
 import com.example.movie.Domain.MemberDTO;
 
 import com.example.movie.Entity.Cinema;
+import com.example.movie.Repository.CinemaRepository;
 import com.example.movie.Service.CinemaService;
 import com.example.movie.Service.MemberService;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     private final MemberService memberService;
     private final CinemaService cinemaService;
+    private final CinemaRepository cinemaRepository;
     // 생성자 주입 : (Constructor Injection) vs. @Autowired
-    public AdminController(MemberService memberService, CinemaService cinemaService) {
+    public AdminController(MemberService memberService, CinemaService cinemaService, CinemaRepository cinemaRepository) {
         this.memberService = memberService;
         this.cinemaService = cinemaService;
+        this.cinemaRepository = cinemaRepository;
     }
 
     @GetMapping("/home")
@@ -75,9 +78,17 @@ public class AdminController {
         model.addAttribute(cinema);
         return "/admin/ciupdate";
     }
-
+    //리파람 -> /member/1 -> 패스변수 /// /member?id=1 -> 리파람
+    //모덜 -> form으로 데이터를 전송할때 Model 형식으로 받고싶을때 ->
+    //스루패스 -> /member/1 -> 1을 {변수명} 으로 치환해줌
     @GetMapping("/{ci_no}")
-    public String getDetail(){
+    public String getDetail(@PathVariable("ci_no") Long id, Model model){
+        CinemaDTO cinemaDTO = cinemaService.findById(id);
+        //cinema에 접근해서 seat 정보만 빼 -> 이건 String형으로 빠지겠지
+        //뷰에 그냥 스트링형으로 보내버려
+        //근데 JS에서 짤라
+        model.addAttribute("cinema", cinemaDTO);
+
         return "/admin/detailTest";
     }
 
