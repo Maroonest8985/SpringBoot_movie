@@ -78,6 +78,9 @@ public class Movie {
     /*DB 저장 일자*/
     private String targetDt;
 
+    /*이미지 주소 form NaverApi*/
+    private String imgSrc;
+
     @CreationTimestamp
     private LocalDateTime modification_date_time;
 

@@ -53,6 +53,7 @@ public class MainController {
         //List<Movie> movieList = dailyMovieRepository.findAll();
         List<Movie> movieList = dailyMovieRepository.findByMovieNmContaining(searchMovie);
 
+
         System.out.println(movieList);
         model.addAttribute("movieList", movieList);
 
@@ -67,6 +68,7 @@ public class MainController {
         dateList = scheduleService.getDate(movieCd);
         System.out.println(dateList);
         MemberDTO member = (MemberDTO) session.getAttribute("login");
+
         model.addAttribute("date", dateList);
         //model.addAttribute("time", timeList);
         model.addAttribute("movie", movie);
@@ -104,21 +106,10 @@ public class MainController {
         model.addAttribute("movie",movie);
         return "detail";
     }
-//  수정해야하는 거.,...
-    @GetMapping("/movie/{keyword}")
-    public String getSearch(@PathVariable String keyword, Model model){
 
-        MoviesResponseDto naver =  movieService.findByKeyword(keyword);
-        MoviesResponseDto.Item[] movie = naver.getItems();
-        //System.out.println(movie);
-        //Object title = naver.getItems();// title을 Object -> MoviesDto 형식으로 변환
-        model.addAttribute("naver", naver);
 
-        model.addAttribute("movies", naver.getItems());
-        return "moviesearch";
-    }
     @GetMapping("/movies/{keyword}")
-    public String getSearch2(@PathVariable String keyword, Model model) throws com.nimbusds.jose.shaded.json.parser.ParseException {
+    public String getSearch(@PathVariable String keyword, Model model) throws com.nimbusds.jose.shaded.json.parser.ParseException {
         MoviesDto naver = movieService.findByKeyword2(keyword);
         System.out.println(naver);
         model.addAttribute("naver", naver);

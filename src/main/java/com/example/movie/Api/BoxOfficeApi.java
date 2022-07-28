@@ -2,6 +2,7 @@ package com.example.movie.Api;
 
 import com.example.movie.Entity.Movie;
 import com.example.movie.Repository.DailyMovieRepository;
+import com.example.movie.Service.MovieService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nimbusds.jose.shaded.json.JSONArray;
 import com.nimbusds.jose.shaded.json.JSONObject;
@@ -19,7 +20,7 @@ import java.util.List;
 public class BoxOfficeApi {
 
     private final DailyMovieRepository dailyMovieRepository;
-
+    private final MovieService movieService;
     //발급키
     String key = "3ab83bf06ebbff20eab7fc271423bc42";
 
@@ -78,13 +79,16 @@ public class BoxOfficeApi {
                 //JSON object -> Java Object(Entity) 변환
                 Movie dailyMovie = objectMapper.readValue(dailyBoxOffice.toString(), Movie.class);
                 String movieCd = dailyMovie.getMovieCd();
+                String movieNm = dailyMovie.getMovieNm();
                 List<String> movieList = dailyMovieRepository.findAllByMovieCd(movieCd);//업데이트
                 System.out.println(movieList);
+                String imgSrc = movieService.findByKeyword2(movieNm).getImage();
                 //DB저장
                 if(movieList.isEmpty() == true){//영화가 겹치나? 안겹치면->
                     dailyMovie.setTargetDt(targetDt);
                     dailyMovie.setBoxofficeType(boxofficeType);
                     dailyMovie.setShowRange(showRange);
+                    dailyMovie.setImgSrc(imgSrc);
                     dailyMovieRepository.save(dailyMovie);
                 }else{
 
