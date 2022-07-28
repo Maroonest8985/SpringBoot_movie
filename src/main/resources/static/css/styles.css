@@ -97,6 +97,26 @@ hr {
   opacity: 0.25;
 }
 
+.hr-sect {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 1);
+  font-size: 12px;
+  margin: 8px 0px;
+}
+.hr-sect::before,
+.hr-sect::after {
+  content: "";
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 1);
+  height: 3px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 16px;
+}
+
+
 hr:not([size]) {
   height: 1px;
 }
