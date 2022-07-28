@@ -93,17 +93,19 @@ public class NaverApi {
         }
     }
 
-    public List<MoviesDto> naverMovie(String text) throws ParseException {
+    public MoviesDto naverMovie(String text) throws ParseException {
 
         try {
-            text = URLEncoder.encode(" 검색어 ", "UTF-8");
+            text = URLEncoder.encode(text, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException("검색어 인코딩 실패", e);
         }
-        String apiURL = "https://openapi.naver.com/v1/search/movie?query=" + text;
+
+        String apiURL = "https://openapi.naver.com/v1/search/movie.json?query=" + text;
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", CLIENT_ID);
         requestHeaders.put("X-Naver-Client-Secret", CLIENT_SECRET);
+        System.out.println(apiURL);
 
         String responseBody = get(apiURL, requestHeaders);//get(apiURL, requestHeaders);
         String json = responseBody;
@@ -111,9 +113,9 @@ public class NaverApi {
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(json);
         JSONArray item = (JSONArray) obj.get("items");
-        List<MoviesDto> list = null;
-        list = new ArrayList<MoviesDto>();
-
+        MoviesDto list = null;
+        list = new MoviesDto();
+        System.out.println("items = "+item);
         for (int i = 0; i < item.size(); i++) {
             MoviesDto m = new MoviesDto();
             JSONObject tmp = (JSONObject) item.get(i);
@@ -121,26 +123,23 @@ public class NaverApi {
             String image = (String) tmp.get("image");
             String actor = (String) tmp.get("actor");
             String link = (String) tmp.get("link");
-            String subtitle = (String) tmp.get("subtitle");
-            Date pubDate = (Date) tmp.get("pubDate");
-            Float userRating = (Float) tmp.get("userRating");
+            //String subtitle = (String) tmp.get("subtitle");
+           // Date pubDate = (Date) tmp.get("pubDate");
+            //Float userRating = (Float) tmp.get("userRating");
             String director = (String) tmp.get("director");
+            System.out.println("for문 안"+tmp);
             m.setTitle(title);
             m.setImage(image);
             m.setActor(actor);
             m.setLink(link);
-            m.setPubDate(pubDate);
-            m.setSubtitle(subtitle);
-            m.setUserRating(userRating);
+            //m.setPubDate(pubDate);
+           // m.setSubtitle(subtitle);
+           // m.setUserRating(userRating);
             m.setDirector(director);
 
-            m.setSubtitle(subtitle);
-            if (m != null) list.add(m);
+           // m.setSubtitle(subtitle);
+            if (m != null) list = m;
         }
-        for (MoviesDto movie : list) {
-            System.out.println(movie.getTitle());
-        }
-
         return list;
     }
 }
