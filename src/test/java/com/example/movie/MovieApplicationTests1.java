@@ -31,6 +31,5 @@ class MovieApplicationTests1 {
         Date dated = transFormat.parse(date);
         System.out.println(dated);
         System.out.println(service.getTime(movieCd, dated));
-
     }
 }
